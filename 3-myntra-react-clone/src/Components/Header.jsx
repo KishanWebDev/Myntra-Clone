@@ -1,57 +1,74 @@
+import React from 'react';
 import { BsFillPersonFill } from "react-icons/bs";
 import { FaGrinHearts } from "react-icons/fa";
 import { GiSchoolBag } from "react-icons/gi";
 import { Link } from "react-router-dom";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const bag = useSelector((store) => store.bag);
 
   return (
-    <header>
-      <div className="logo_container">
-        <Link to="/">
+    <header className="bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light container">
+        <Link className="navbar-brand" to="/">
           <img
-            className="myntra_home"
             src="/images/myntra_logo.webp"
             alt="Myntra Home"
+            height="30"
           />
         </Link>
-      </div>
-      <nav className="nav_bar">
-        <a href="#">Men</a>
-        <a href="#">Women</a>
-        <a href="#">Kids</a>
-        <a href="#">Home & Living</a>
-        <a href="#">Beauty</a>
-        <a href="#">
-          Studio <sup>New</sup>
-        </a>
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarContent">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <li className="nav-item"><a className="nav-link" href="#">Men</a></li>
+            <li className="nav-item"><a className="nav-link" href="#">Women</a></li>
+            <li className="nav-item"><a className="nav-link" href="#">Kids</a></li>
+            <li className="nav-item"><a className="nav-link" href="#">Home & Living</a></li>
+            <li className="nav-item"><a className="nav-link" href="#">Beauty</a></li>
+            <li className="nav-item">
+              <a className="nav-link" href="#">
+                Studio <sup className="text-danger">New</sup>
+              </a>
+            </li>
+          </ul>
+          <form className="d-flex my-2 my-lg-0 flex-grow-1 mx-lg-4">
+            <div className="input-group">
+              <span className="input-group-text bg-white border-end-0">
+                <i className="material-icons">search</i>
+              </span>
+              <input className="form-control border-start-0" type="search" placeholder="Search for products, brands and more" />
+            </div>
+          </form>
+          <ul className="navbar-nav">
+            <li className="nav-item mx-2">
+              <a className="nav-link text-center" href="#">
+                <BsFillPersonFill className="d-block mx-auto mb-1" />
+                <small>Profile</small>
+              </a>
+            </li>
+            <li className="nav-item mx-2">
+              <a className="nav-link text-center" href="#">
+                <FaGrinHearts className="d-block mx-auto mb-1" />
+                <small>Wishlist</small>
+              </a>
+            </li>
+            <li className="nav-item mx-2">
+              <Link className="nav-link text-center position-relative" to="/bag">
+                <GiSchoolBag className="d-block mx-auto mb-1" />
+                <small>Bag</small>
+                {bag.length > 0 && (
+                  <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {bag.length}
+                  </span>
+                )}
+              </Link>
+            </li>
+          </ul>
+        </div>
       </nav>
-      <div className="search_bar">
-        <span className="material-symbols-outlined search_icon">search</span>
-        <input
-          className="search_input"
-          placeholder="Search for products, brands and more"
-        />
-      </div>
-      <div className="action_bar">
-        <div className="action_container">
-          <BsFillPersonFill />
-          <span className="action_name">Profile</span>
-        </div>
-
-        <div className="action_container">
-          <FaGrinHearts />
-          <span className="action_name">Wishlist</span>
-        </div>
-
-        <Link className="action_container" to="/bag">
-          <GiSchoolBag />
-          <span className="action_name">Bag</span>
-          <span className="bag-item-count">{bag.length}</span>
-        </Link>
-      </div>
     </header>
   );
 };
